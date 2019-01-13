@@ -6,7 +6,7 @@ from mtgsdk import Subtype
 from mtgsdk import Changelog
 
 def main():
-    card = Card.find(386616)
+    card = Card.find(42)
     print(card.name)
 
 
