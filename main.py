@@ -40,14 +40,15 @@ class InputWindow:
 
 
     def add_sets(self):
-        # self.listbox = Listbox(selectmode=EXTENDED)
-        # self.listbox.grid(row=0, column=0, columnspan=2, sticky=N+S)
-        # self.setCheck.grid(row=0, column=0, rowspan=2, sticky=N + S)
-
+        # Retrieve from MTGSDK, sort by release date, and pass into ScrollCanvas
         sets = Set.all()
-        print(sets)
+        sets.sort(key=lambda set: set.release_date, reverse=True)
 
-        self.setCheck.populate(sets)
+        setNames = (set.name for set in sets)
+        self.setCheck.populate(setNames)
+
+        print(*setNames, sep='\n')
+
 
 def main():
     card = Card.find(42)

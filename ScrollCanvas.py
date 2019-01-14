@@ -19,12 +19,7 @@ class ScrollCanvas(tk.Frame):
     def populate(self, data):
         for idx, point in enumerate(data):
             selected = tk.IntVar()
-            tk.Checkbutton(self.frame, text=point.name, variable=selected).grid(row=idx, column=0, padx=2)
-
-            #tk.Label(self.frame, text="%s" % row, width=3, borderwidth="1",
-            #        relief="solid").grid(row=row, column=0)
-            #t="this is the second column for row %s" %row
-            #tk.Label(self.frame, text=t).grid(row=row, column=1)
+            tk.Checkbutton(self.frame, text=point, variable=selected).grid(row=idx, column=0, sticky='w')
 
     def onFrameConfigure(self, event):
         '''Reset the scroll region to encompass the inner frame'''
