@@ -11,8 +11,8 @@ class InputWindow:
         self.root = root
         root.title("MTG Set Checker")
 
-        screen_width = int(root.winfo_screenwidth() / 4)
-        screen_height = int(root.winfo_screenheight() / 4)
+        screen_width = int(root.winfo_screenwidth() / 2)
+        screen_height = int(root.winfo_screenheight() / 2)
 
         self.width = screen_width
         self.height = screen_height
@@ -22,8 +22,15 @@ class InputWindow:
 
         self.setCheck = ScrollCanvas(root)
 
+        self.b = Button(root, text="OK", command=self.printVar)
+        self.b.pack()
+
         self.make_grid()
         self.add_sets()
+
+    def printVar(self):
+        var = self.setCheck.checkVar()
+        print(var)
 
     def make_grid(self):
         total_rows = 3
@@ -44,15 +51,11 @@ class InputWindow:
         sets = Set.all()
         sets.sort(key=lambda set: set.release_date, reverse=True)
 
-        setNames = (set.name for set in sets)
+        setNames = list(set.name for set in sets)
         self.setCheck.populate(setNames)
 
-        print(*setNames, sep='\n')
+        # print(*setNames, sep='\n')
 
-
-def main():
-    card = Card.find(42)
-    print(card.name)
 
 
 if __name__ == "__main__":
