@@ -4,8 +4,11 @@ class ScrollCanvas(tk.Frame):
     def __init__(self, root):
 
         tk.Frame.__init__(self, root)
+        # Create Canvas Element
         self.canvas = tk.Canvas(root, borderwidth=0, background="#ffffff")
         self.frame = tk.Frame(self.canvas, background="#ffffff")
+
+        # Create Vertical Scrollbar
         self.vsb = tk.Scrollbar(root, orient="vertical", command=self.canvas.yview)
         self.canvas.configure(yscrollcommand=self.vsb.set)
 
@@ -17,13 +20,17 @@ class ScrollCanvas(tk.Frame):
         self.frame.bind("<Configure>", self.onFrameConfigure)
 
     def populate(self, data):
+        # Save selected for iterating through CheckVar later
         self.selected = {}
         self.setList = data;
+
+        # Iterate through with point and num to add CheckButton to grid location and intvar based on num
         for idx, point in enumerate(self.setList):
             self.selected[idx] = tk.IntVar()
             tk.Checkbutton(self.frame, text=point, variable=self.selected[idx]).grid(row=idx, column=0, sticky='w')
 
     def checkVar(self):
+        # Iterate through IntVars and append the name of the sets that are checked
         sets = []
         for idx, var in enumerate(self.setList):
             if self.selected[idx].get() == 1:
@@ -32,5 +39,4 @@ class ScrollCanvas(tk.Frame):
         return sets
 
     def onFrameConfigure(self, event):
-        '''Reset the scroll region to encompass the inner frame'''
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
