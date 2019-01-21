@@ -5,17 +5,17 @@ class ScrollCanvas(tk.Frame):
 
         tk.Frame.__init__(self, root)
         # Create Canvas Element
-        self.canvas = tk.Canvas(root, borderwidth=0, background="#ffffff")
-        self.frame = tk.Frame(self.canvas, background="#ffffff")
+        self.canvas = tk.Canvas(root, borderwidth=0) #, background="#ffffff"
+        self.frame = tk.Frame(self.canvas) #, background="#ffffff"
 
         # Create Vertical Scrollbar
         self.vsb = tk.Scrollbar(root, orient="vertical", command=self.canvas.yview)
         self.canvas.configure(yscrollcommand=self.vsb.set)
 
-        self.vsb.pack(side="right", fill="y")
-        self.canvas.pack(side="left", fill="both", expand=True)
-        self.canvas.create_window((4,4), window=self.frame, anchor="nw",
-                                  tags="self.frame")
+        self.vsb.grid(row = 0, column = 1, sticky='ns') #.pack(side="right", fill="y")
+        self.canvas.grid(row = 0, column = 0) #.pack(side="left", fill="both", expand=True)
+        self.canvas.create_window((4,4), window=self.frame, anchor="nw")
+        self.canvas.bind_all("<MouseWheel>", self.onMousewheel)
 
         self.frame.bind("<Configure>", self.onFrameConfigure)
 
@@ -40,3 +40,6 @@ class ScrollCanvas(tk.Frame):
 
     def onFrameConfigure(self, event):
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+
+    def onMousewheel(self, event):
+        self.canvas.yview_scroll(-1 * int(event.delta / 20), "units")

@@ -26,7 +26,7 @@ class InputWindow:
 
         # Test button for Check Button variable
         self.b = Button(root, text="OK", command=self.printVar)
-        self.b.pack()
+        self.b.grid(row = 0, column = 2) # .pack()
 
         self.make_grid()
         self.add_sets()
