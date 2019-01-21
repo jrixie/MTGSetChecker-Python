@@ -15,9 +15,10 @@ class ScrollCanvas(tk.Frame):
         self.vsb.grid(row = 0, column = 1, sticky='ns') #.pack(side="right", fill="y")
         self.canvas.grid(row = 0, column = 0) #.pack(side="left", fill="both", expand=True)
         self.canvas.create_window((4,4), window=self.frame, anchor="nw")
-        self.canvas.bind_all("<MouseWheel>", self.onMousewheel)
 
         self.frame.bind("<Configure>", self.onFrameConfigure)
+        self.canvas.bind('<Enter>', self.boundToMousewheel)
+        self.canvas.bind('<Leave>', self.unboundToMousewheel)
 
     def populate(self, data):
         # Save selected for iterating through CheckVar later
@@ -43,3 +44,9 @@ class ScrollCanvas(tk.Frame):
 
     def onMousewheel(self, event):
         self.canvas.yview_scroll(-1 * int(event.delta / 20), "units")
+
+    def boundToMousewheel(self, event):
+        self.canvas.bind_all("<MouseWheel>", self.onMousewheel)
+
+    def unboundToMousewheel(self, event):
+        self.canvas.unbind_all("<MouseWheel>")

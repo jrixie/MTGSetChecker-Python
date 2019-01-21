@@ -26,7 +26,7 @@ class InputWindow:
 
         # Test button for Check Button variable
         self.b = Button(root, text="OK", command=self.printVar)
-        self.b.grid(row = 0, column = 2) # .pack()
+
 
         self.make_grid()
         self.add_sets()
@@ -36,18 +36,14 @@ class InputWindow:
         print(var)
 
     def make_grid(self):
-        # Define grid
-        total_rows = 3
-        total_columns = 3
+        self.setCheck.grid(row = 0, column = 0, sticky = "nws")
+        self.b.grid(row = 0, column = 2)  # .pack()
 
-        rows = range(0, total_rows)
-        columns = range(0, total_columns)
-
-        for column in columns:
-            self.root.columnconfigure(column, weight=1)
-
-        for row in rows:
-            self.root.rowconfigure(row, weight=1, uniform=1)
+        # for column in columns:
+        #     self.root.columnconfigure(column, weight=1)
+        #
+        # for row in rows:
+        #     self.root.rowconfigure(row, weight=1, uniform=1)
 
 
     def add_sets(self):
