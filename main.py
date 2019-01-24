@@ -21,15 +21,20 @@ class InputWindow:
         window_geometry = str(self.width) + 'x' + str(self.height)
         self.root.geometry(window_geometry)
 
+        # Retrieve from MTGSDK, sort by release date, and pass into ScrollCanvas
+        sets = Set.all()
+        sets.sort(key=lambda set: set.release_date, reverse=True)
+
+        setNames = list(set.name for set in sets)
+
         # Create Scroll Canvas
-        self.setCheck = ScrollCanvas(root)
+        self.setCheck = ScrollCanvas(root, setNames)
 
         # Test button for Check Button variable
         self.b = Button(root, text="OK", command=self.printVar)
 
 
         self.make_grid()
-        self.add_sets()
 
     def printVar(self):
         var = self.setCheck.checkVar()
@@ -45,14 +50,6 @@ class InputWindow:
         # for row in rows:
         #     self.root.rowconfigure(row, weight=1, uniform=1)
 
-
-    def add_sets(self):
-        # Retrieve from MTGSDK, sort by release date, and pass into ScrollCanvas
-        sets = Set.all()
-        sets.sort(key=lambda set: set.release_date, reverse=True)
-
-        setNames = list(set.name for set in sets)
-        self.setCheck.populate(setNames)
 
 
 if __name__ == "__main__":

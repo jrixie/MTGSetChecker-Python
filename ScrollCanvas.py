@@ -1,7 +1,7 @@
 import tkinter as tk
 
 class ScrollCanvas(tk.Frame):
-    def __init__(self, root):
+    def __init__(self, root, data):
 
         tk.Frame.__init__(self, root)
         # Create Canvas Element
@@ -16,15 +16,17 @@ class ScrollCanvas(tk.Frame):
         self.canvas.grid(row = 0, column = 0) #.pack(side="left", fill="both", expand=True)
         self.canvas.create_window((4,4), window=self.frame, anchor="nw")
 
-        self.frame.bind("<Configure>", self.onFrameConfigure)
-        self.canvas.bind('<Enter>', self.boundToMousewheel)
-        self.canvas.bind('<Leave>', self.unboundToMousewheel)
-
-    def populate(self, data):
         # Save selected for iterating through CheckVar later
         self.selected = {}
         self.setList = data;
 
+        self.populate()
+
+        self.frame.bind("<Configure>", self.onFrameConfigure)
+        self.canvas.bind('<Enter>', self.boundToMousewheel)
+        self.canvas.bind('<Leave>', self.unboundToMousewheel)
+
+    def populate(self):
         # Iterate through with point and num to add CheckButton to grid location and intvar based on num
         for idx, point in enumerate(self.setList):
             self.selected[idx] = tk.IntVar()
