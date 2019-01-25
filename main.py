@@ -33,6 +33,9 @@ class InputWindow:
         # Test button for Check Button variable
         self.b = Button(root, text="OK", command=self.printVar)
 
+        # Create Label for Search
+        self.search = Entry(root)
+
 
         self.make_grid()
 
@@ -41,14 +44,10 @@ class InputWindow:
         print(var)
 
     def make_grid(self):
-        self.setCheck.grid(row = 0, column = 0, sticky = "nws")
-        self.b.grid(row = 0, column = 2)  # .pack()
+        self.search.grid(row = 0, column = 0, stick = "nwe", ipady = 5)
+        self.setCheck.grid(row = 1, column = 0, sticky = "ws")
+        self.b.grid(row = 1, column = 2)  # .pack()
 
-        # for column in columns:
-        #     self.root.columnconfigure(column, weight=1)
-        #
-        # for row in rows:
-        #     self.root.rowconfigure(row, weight=1, uniform=1)
 
 
 
