@@ -22,10 +22,10 @@ class InputWindow:
         self.root.geometry(window_geometry)
 
         # Retrieve from MTGSDK, sort by release date, and pass into ScrollCanvas
-        sets = Set.all()
-        sets.sort(key=lambda set: set.release_date, reverse=True)
+        self.sets = Set.all()
+        self.sets.sort(key=lambda set: set.release_date, reverse=True)
 
-        setNames = list(set.name for set in sets)
+        setNames = list(set.name for set in self.sets)
 
         # Create Scroll Canvas
         self.setCheck = ScrollCanvas(root, setNames)
@@ -34,7 +34,9 @@ class InputWindow:
         self.b = Button(root, text="OK", command=self.printVar)
 
         # Create Label for Search
-        self.search = Entry(root)
+        sv = StringVar()
+        sv.trace("w", lambda name, index, mode, sv=sv: self.update(sv))
+        self.search = Entry(root, textvariable=sv)
 
 
         self.make_grid()
@@ -48,6 +50,18 @@ class InputWindow:
         self.setCheck.grid(row = 1, column = 0, sticky = "ws")
         self.b.grid(row = 1, column = 2)  # .pack()
 
+    def update(self, sv):
+        setList = []
+
+        text = self.search.get()
+
+        for set in self.sets:
+            if set.name.find(text) != -1:
+                setList.append(set.name)
+
+        print(setList)
+
+        self.setCheck.updateVar(setList)
 
 
 

@@ -41,6 +41,10 @@ class ScrollCanvas(tk.Frame):
 
         return sets
 
+    def updateVar(self, data):
+        self.setList = data
+        self.populate()
+
     def onFrameConfigure(self, event):
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
 
