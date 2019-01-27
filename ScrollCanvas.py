@@ -27,12 +27,22 @@ class ScrollCanvas(tk.Frame):
 
     def populate(self):
         # Iterate through with point and num to add CheckButton to grid location and intvar based on num
-        for idx, point in enumerate(self.setList):
-            var = tk.IntVar()
-            check = tk.Checkbutton(self.frame, text=point, variable=var)
-            check.grid(row=idx, column=0, sticky='w')
+        if len(self.checkButtons) == 0:
+            for idx, point in enumerate(self.setList):
+                var = tk.IntVar()
+                check = tk.Checkbutton(self.frame, text=point, variable=var)
+                check.grid(row=idx, column=0, sticky='w')
 
-            self.checkButtons.append((check, var))
+                self.checkButtons.append((check, var))
+        else:
+            count = 0
+            for check, var in self.checkButtons:
+                if self.setList[count] == check.cget("text"):
+                    check.grid(row=count, column=0, sticky='w')
+                    count += 1
+
+                    if count >= len(self.setList):
+                        return
 
     def checkVar(self):
         # Iterate through IntVars and append the name of the sets that are checked
