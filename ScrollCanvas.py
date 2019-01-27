@@ -17,9 +17,8 @@ class ScrollCanvas(tk.Frame):
         self.canvas.create_window((4,4), window=self.frame, anchor="nw")
 
         # Save selected for iterating through CheckVar later
-        self.selected = {}
         self.setList = data;
-
+        self.checkButtons = [];
         self.populate()
 
         self.frame.bind("<Configure>", self.onFrameConfigure)
@@ -29,8 +28,11 @@ class ScrollCanvas(tk.Frame):
     def populate(self):
         # Iterate through with point and num to add CheckButton to grid location and intvar based on num
         for idx, point in enumerate(self.setList):
-            self.selected[idx] = tk.IntVar()
-            tk.Checkbutton(self.frame, text=point, variable=self.selected[idx]).grid(row=idx, column=0, sticky='w')
+            var = tk.IntVar()
+            check = tk.Checkbutton(self.frame, text=point, variable=var)
+            check.grid(row=idx, column=0, sticky='w')
+
+            self.checkButtons.append((check, var))
 
     def checkVar(self):
         # Iterate through IntVars and append the name of the sets that are checked
@@ -44,6 +46,10 @@ class ScrollCanvas(tk.Frame):
     def updateVar(self, data):
         self.setList = data
         self.populate()
+
+    def clear(self):
+        self.canvas.delete('all')
+        self.canvas.create_window((4, 4), window=self.frame, anchor="nw")
 
     def onFrameConfigure(self, event):
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
