@@ -34,6 +34,7 @@ class InputWindow:
         self.b = Button(root, text="OK", command=self.printVar)
 
         # Create Label for Search
+        # Create StringVar and bind to callback function on change
         sv = StringVar()
         sv.trace("w", lambda name, index, mode, sv=sv: self.update(sv))
         self.search = Entry(root, textvariable=sv)

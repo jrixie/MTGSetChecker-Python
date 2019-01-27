@@ -34,7 +34,7 @@ class ScrollCanvas(tk.Frame):
                 check.grid(row=idx, column=0, sticky='w')
 
                 self.checkButtons.append((check, var))
-        else:
+        elif len(self.setList) != 0:
             count = 0
             for check, var in self.checkButtons:
                 if self.setList[count] == check.cget("text"):
@@ -47,9 +47,9 @@ class ScrollCanvas(tk.Frame):
     def checkVar(self):
         # Iterate through IntVars and append the name of the sets that are checked
         sets = []
-        for idx, var in enumerate(self.setList):
-            if self.selected[idx].get() == 1:
-                sets.append(var)
+        for check, var in self.checkButtons:
+            if var.get():
+                sets.append(check.cget("text"))
 
         return sets
 
