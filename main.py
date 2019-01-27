@@ -54,17 +54,19 @@ class InputWindow:
     def update(self, sv):
         setList = []
 
+        # Retrieve text from searchbar
         text = self.search.get()
 
+        # Find set names containing the substring
         for set in self.sets:
             if set.name.find(text) != -1:
                 setList.append(set.name)
 
         print(setList)
 
+        # Clear the canvas, update its setList, and populate
         self.setCheck.clear()
         self.setCheck.updateVar(setList)
-        self.setCheck.populate()
 
 
 

@@ -21,13 +21,14 @@ class ScrollCanvas(tk.Frame):
         self.checkButtons = [];
         self.populate()
 
+        # Bind functions to allow for scrolling only in frame
         self.frame.bind("<Configure>", self.onFrameConfigure)
         self.canvas.bind('<Enter>', self.boundToMousewheel)
         self.canvas.bind('<Leave>', self.unboundToMousewheel)
 
     def populate(self):
-        # Iterate through with point and num to add CheckButton to grid location and intvar based on num
         if len(self.checkButtons) == 0:
+            # Iterate through with point and num to add CheckButton to grid location and intvar based on num
             for idx, point in enumerate(self.setList):
                 var = tk.IntVar()
                 check = tk.Checkbutton(self.frame, text=point, variable=var)
@@ -35,6 +36,7 @@ class ScrollCanvas(tk.Frame):
 
                 self.checkButtons.append((check, var))
         elif len(self.setList) != 0:
+            # If a list of checkButtons already exists, use those to maintain IntVar states
             count = 0
             for check, var in self.checkButtons:
                 if self.setList[count] == check.cget("text"):
@@ -43,6 +45,8 @@ class ScrollCanvas(tk.Frame):
 
                     if count >= len(self.setList):
                         return
+
+            # If the setList is 0, do nothing
 
     def checkVar(self):
         # Iterate through IntVars and append the name of the sets that are checked
@@ -54,12 +58,13 @@ class ScrollCanvas(tk.Frame):
         return sets
 
     def updateVar(self, data):
+        # Set new data and populate
         self.setList = data
         self.populate()
 
     def clear(self):
+        # Iterate through grid slaves in frame and forget them
         for check in self.frame.grid_slaves():
-           # print(check)
             check.grid_forget()
 
     def onFrameConfigure(self, event):
