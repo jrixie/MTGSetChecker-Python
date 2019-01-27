@@ -62,8 +62,8 @@ class InputWindow:
         print(setList)
 
         self.setCheck.clear()
-        #self.setCheck.updateVar(setList)
-        #self.setCheck.populate()
+        self.setCheck.updateVar(setList)
+        self.setCheck.populate()
 
 
 

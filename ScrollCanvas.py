@@ -48,8 +48,9 @@ class ScrollCanvas(tk.Frame):
         self.populate()
 
     def clear(self):
-        self.canvas.delete('all')
-        self.canvas.create_window((4, 4), window=self.frame, anchor="nw")
+        for check in self.frame.grid_slaves():
+           # print(check)
+            check.grid_forget()
 
     def onFrameConfigure(self, event):
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
