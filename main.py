@@ -39,17 +39,19 @@ class InputWindow:
         sv.trace("w", lambda name, index, mode, sv=sv: self.update(sv))
         self.search = Entry(root, textvariable=sv)
 
-
         self.make_grid()
+
 
     def printVar(self):
         var = self.setCheck.checkVar()
         print(var)
 
+
     def make_grid(self):
         self.search.grid(row = 0, column = 0, stick = "nwe", ipady = 5)
         self.setCheck.grid(row = 1, column = 0, sticky = "ws")
         self.b.grid(row = 1, column = 2)  # .pack()
+
 
     def update(self, sv):
         setList = []
@@ -67,7 +69,6 @@ class InputWindow:
         # Clear the canvas, update its setList, and populate
         self.setCheck.clear()
         self.setCheck.updateVar(setList)
-
 
 
 if __name__ == "__main__":

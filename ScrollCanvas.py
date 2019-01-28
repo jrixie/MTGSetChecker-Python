@@ -26,6 +26,7 @@ class ScrollCanvas(tk.Frame):
         self.canvas.bind('<Enter>', self.boundToMousewheel)
         self.canvas.bind('<Leave>', self.unboundToMousewheel)
 
+
     def populate(self):
         if len(self.checkButtons) == 0:
             # Iterate through with point and num to add CheckButton to grid location and intvar based on num
@@ -35,6 +36,7 @@ class ScrollCanvas(tk.Frame):
                 check.grid(row=idx, column=0, sticky='w')
 
                 self.checkButtons.append((check, var))
+
         elif len(self.setList) != 0:
             # If a list of checkButtons already exists, use those to maintain IntVar states
             count = 0
@@ -48,6 +50,7 @@ class ScrollCanvas(tk.Frame):
 
             # If the setList is 0, do nothing
 
+
     def checkVar(self):
         # Iterate through IntVars and append the name of the sets that are checked
         sets = []
@@ -57,15 +60,18 @@ class ScrollCanvas(tk.Frame):
 
         return sets
 
+
     def updateVar(self, data):
         # Set new data and populate
         self.setList = data
         self.populate()
 
+
     def clear(self):
         # Iterate through grid slaves in frame and forget them
         for check in self.frame.grid_slaves():
             check.grid_forget()
+
 
     def onFrameConfigure(self, event):
         self.canvas.configure(scrollregion=self.canvas.bbox("all"))
