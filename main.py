@@ -33,11 +33,15 @@ class InputWindow:
         # Test button for Check Button variable
         self.b = Button(root, text="OK", command=self.printVar)
 
-        # Create Label for Search
+        # Create Entry for Search
         # Create StringVar and bind to callback function on change
         sv = StringVar()
         sv.trace("w", lambda name, index, mode, sv=sv: self.update(sv))
-        self.search = Entry(root, textvariable=sv)
+        self.search = Entry(root, textvariable = sv)
+
+        # Create Entry for Cards
+        cardsVar = StringVar()
+        self.cards = Entry(root, textvariable = cardsVar)
 
         self.make_grid()
 
@@ -48,9 +52,10 @@ class InputWindow:
 
 
     def make_grid(self):
-        self.search.grid(row = 0, column = 0, stick = "nwe", ipady = 5)
+        self.search.grid(row = 0, column = 0, sticky = "nwe")
         self.setCheck.grid(row = 1, column = 0, sticky = "ws")
-        self.b.grid(row = 1, column = 2)  # .pack()
+        self.b.grid(row = 1, column = 2, sticky = "nse")
+        self.cards.grid(row = 0, column = 2)
 
 
     def update(self, sv):
