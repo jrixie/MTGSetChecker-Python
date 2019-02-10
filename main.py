@@ -1,6 +1,7 @@
 from tkinter import *
 
 from ScrollCanvas import ScrollCanvas
+from tkinter.scrolledtext import ScrolledText
 
 from mtgsdk import Card
 from mtgsdk import Set
@@ -39,9 +40,9 @@ class InputWindow:
         sv.trace("w", lambda name, index, mode, sv=sv: self.update(sv))
         self.search = Entry(root, textvariable = sv)
 
-        # Create Entry for Cards
+        # Create ScrolledText for Cards
         cardsVar = StringVar()
-        self.cards = Entry(root, textvariable = cardsVar)
+        self.cards = ScrolledText(root)
 
         self.make_grid()
 
