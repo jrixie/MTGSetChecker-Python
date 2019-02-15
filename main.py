@@ -51,13 +51,18 @@ class InputWindow:
         var = self.setCheck.checkVar()
         print(var)
 
+        self.parseCards()
+        print(self.cardList)
+
 
     def make_grid(self):
         self.search.grid(row = 0, column = 0, sticky = "nwe")
         self.setCheck.grid(row = 1, column = 0, sticky = "ws")
-        self.b.grid(row = 1, column = 2, sticky = "nse")
+        self.b.grid(row = 3, column = 0, sticky = "nse")
         self.cards.grid(row = 0, column = 2)
 
+    def parseCards(self):
+        self.cardList = self.cards.get(1.0, END).splitlines()
 
     def update(self, sv):
         setList = []
