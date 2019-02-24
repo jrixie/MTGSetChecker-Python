@@ -54,6 +54,13 @@ class InputWindow:
         self.parseCards()
         print(self.cardList)
 
+    def crossCheck(self):
+        cards = self.parseCards()
+
+
+
+
+
 
     def make_grid(self):
         self.search.grid(row = 0, column = 0, sticky = "nwe")
@@ -63,6 +70,7 @@ class InputWindow:
 
     def parseCards(self):
         self.cardList = self.cards.get(1.0, END).splitlines()
+        return self.cardList
 
     def update(self, sv):
         setList = []
