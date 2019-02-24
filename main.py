@@ -54,9 +54,25 @@ class InputWindow:
         self.parseCards()
         print(self.cardList)
 
+        print(self.crossCheck)
+
+    @property
     def crossCheck(self):
         cards = self.parseCards()
+        sets = self.parseSets()
 
+        matches = []
+
+        for card in cards:
+            cardAPI = Card.where(name=card).all()
+            if cardAPI is not None:
+                for c in cardAPI:
+                    for s in sets:
+                        print("Comparing " , s , "to" , c.set_name)
+                        if s == c.set_name:
+                            matches.append([card, c.set_name])
+
+        return matches
 
 
 
@@ -71,6 +87,10 @@ class InputWindow:
     def parseCards(self):
         self.cardList = self.cards.get(1.0, END).splitlines()
         return self.cardList
+
+    def parseSets(self):
+        self.setList = self.setCheck.checkVar()
+        return self.setList
 
     def update(self, sv):
         setList = []
