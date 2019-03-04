@@ -32,7 +32,10 @@ class InputWindow:
         self.setCheck = ScrollCanvas(root, setNames)
 
         # Test button for Check Button variable
-        self.b = Button(root, text="OK", command=self.printVar)
+        self.ok = Button(root, text="OK", command=self.printVar)
+
+        # Add Clear Button
+        self.clear = Button(root, text="Uncheck", command=self.uncheck)
 
         # Create Entry for Search
         # Create StringVar and bind to callback function on change
@@ -54,9 +57,8 @@ class InputWindow:
         self.parseCards()
         print(self.cardList)
 
-        print(self.crossCheck)
+        print(self.crossCheck())
 
-    @property
     def crossCheck(self):
         cards = self.parseCards()
         sets = self.parseSets()
@@ -74,14 +76,11 @@ class InputWindow:
 
         return matches
 
-
-
-
-
     def make_grid(self):
         self.search.grid(row = 0, column = 0, sticky = "nwe")
         self.setCheck.grid(row = 1, column = 0, sticky = "ws")
-        self.b.grid(row = 3, column = 0, sticky = "nse")
+        self.ok.grid(row = 3, column = 0, sticky = "nse")
+        self.clear.grid(row=2, column=0, sticky="nse")
         self.cards.grid(row = 0, column = 2)
 
     def parseCards(self):
@@ -109,6 +108,8 @@ class InputWindow:
         self.setCheck.clear()
         self.setCheck.updateVar(setList)
 
+    def uncheck(self):
+        self.setCheck.uncheck()
 
 if __name__ == "__main__":
     root = Tk()

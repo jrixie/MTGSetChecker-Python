@@ -60,6 +60,10 @@ class ScrollCanvas(tk.Frame):
 
         return sets
 
+    def uncheck(self):
+        for check, var in self.checkButtons:
+            var.set(0)
+
 
     def updateVar(self, data):
         # Set new data and populate
